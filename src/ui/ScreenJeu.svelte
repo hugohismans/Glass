@@ -95,7 +95,7 @@
     position: absolute;
     right: calc(var(--sr) + var(--e4));
     top: 43%;
-    color: var(--marque);
+    color: var(--marque-texte);
     font-size: 10px;
     opacity: 0;
     text-align: right;

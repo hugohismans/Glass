@@ -25,8 +25,12 @@ export interface Layout {
 }
 
 export function calculerLayout(w: number, h: number, dpr: number): Layout {
-  /* Le verre occupe une bonne moitié de la largeur : c'est le héros. */
-  const unit = Math.min(w * 0.27, (h * 0.6) / RIM);
+  /*
+   * Le verre occupe une bonne moitié de la largeur : c'est le héros. Le
+   * plafond absolu le garde à taille de verre sur un grand écran, où il
+   * deviendrait sinon une citerne.
+   */
+  const unit = Math.min(w * 0.27, (h * 0.6) / RIM, 150);
   const tableY = Math.min(h * 0.78, h - unit * 0.5);
   return {
     w,

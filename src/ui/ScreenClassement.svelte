@@ -3,6 +3,11 @@
 
   const classement = $derived(jeu.classement);
   const dernier = $derived(classement[classement.length - 1]);
+  const avant = $derived(classement[classement.length - 2]);
+  /* Deux joueurs à égalité au fond : personne ne mérite le gage. */
+  const seul = $derived(
+    dernier !== undefined && avant !== undefined && dernier.perduMl > avant.perduMl,
+  );
 </script>
 
 <div class="couche classement entree">
@@ -13,9 +18,9 @@
     </h2>
   </header>
 
-  <ol>
+  <ol data-defilable>
     {#each classement as score, i (score.nom + i)}
-      <li class:dernier={i === classement.length - 1 && classement.length > 1}>
+      <li class:dernier={seul && i === classement.length - 1}>
         <span class="donnee rang">{String(i + 1).padStart(2, '0')}</span>
         <span class="prenom">{score.nom}</span>
         <span class="donnee perdu">{score.perduMl} ml</span>
@@ -23,8 +28,10 @@
     {/each}
   </ol>
 
-  {#if dernier && classement.length > 1}
+  {#if seul && dernier}
     <p class="corps gage">{dernier.nom} {jeu.gage}.</p>
+  {:else if classement.length > 1}
+    <p class="corps">Tout le monde a tenu. Personne ne paie.</p>
   {/if}
 
   <div class="pousse"></div>
@@ -74,11 +81,11 @@
 
   .dernier .prenom,
   .dernier .perdu {
-    color: var(--marque);
+    color: var(--marque-texte);
   }
 
   .gage {
     margin-top: var(--e4);
-    color: var(--marque);
+    color: var(--marque-texte);
   }
 </style>

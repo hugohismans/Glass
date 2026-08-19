@@ -59,7 +59,7 @@
   }
 
   .alerte {
-    color: var(--marque);
+    color: var(--marque-texte);
     margin-bottom: var(--e3);
     max-width: 32ch;
   }

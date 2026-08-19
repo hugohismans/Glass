@@ -119,14 +119,20 @@ export function dessinerVerre(ctx: CanvasRenderingContext2D, l: Layout): void {
   ctx.lineTo(droite + l.paroi * 0.6, l.tableY - l.ry * 0.3);
   ctx.stroke();
 
-  /* 3 bis. Le reflet de la lampe sur la paroi qui lui fait face. */
-  const reflet = ctx.createLinearGradient(gauche, 0, gauche + l.unit * 0.3, 0);
-  reflet.addColorStop(0, couleur('caustique', 0));
-  reflet.addColorStop(0.45, couleur('caustique', 0.13));
-  reflet.addColorStop(1, couleur('caustique', 0));
+  /* 3 bis. Le reflet de la lampe sur la paroi qui lui fait face : une traînée
+     verticale molle, jamais un rectangle. */
+  const longueurReflet = l.unit * 0.85;
   ctx.save();
+  ctx.translate(gauche + l.unit * 0.15, l.rimY + l.unit * 0.75);
+  ctx.scale(0.13, 1);
+  const reflet = ctx.createRadialGradient(0, 0, 0, 0, 0, longueurReflet);
+  reflet.addColorStop(0, couleur('caustique', 0.17));
+  reflet.addColorStop(0.5, couleur('caustique', 0.06));
+  reflet.addColorStop(1, couleur('caustique', 0));
   ctx.fillStyle = reflet;
-  ctx.fillRect(gauche + l.unit * 0.05, l.rimY + l.ry * 0.8, l.unit * 0.22, l.unit * 1.5);
+  ctx.beginPath();
+  ctx.arc(0, 0, longueurReflet, 0, Math.PI * 2);
+  ctx.fill();
   ctx.restore();
 
   /* 4. La lèvre : une ellipse, moitié arrière sourde, moitié avant vive. */

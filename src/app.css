@@ -22,6 +22,9 @@
   --verre-vif: rgba(233, 244, 235, 0.24);
   --texte: #c9d2c9;
   --texte-faible: #8b968c;
+  /* --marque tombe à 3,9:1 sur --ink : trop peu pour du texte. Version lisible
+     de la même teinte, réservée aux mots. Le graphique garde --marque. */
+  --marque-texte: #e4785c;
 
   /* Espacement — 4 / 8 / 12 / 20 / 32 / 52. */
   --e1: 4px;
@@ -209,6 +212,12 @@ input[type='text']:focus {
 .pousse {
   flex: 1 1 auto;
   min-height: var(--e4);
+}
+
+/* Les listes sont les seules zones où l'on a le droit de faire défiler. */
+[data-defilable] {
+  touch-action: pan-y;
+  overscroll-behavior: contain;
 }
 
 /* -- Transitions d'écran : un fondu, rien d'autre. -- */

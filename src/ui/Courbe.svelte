@@ -25,13 +25,13 @@
       .join(' ');
   });
 
-  const aire = $derived(points ? `0,${H} ${points} ${L},${H}` : '');
+
 </script>
 
 {#if points}
   <!-- Ce qu'il restait, seconde après seconde. Un trait, pas un graphique. -->
   <svg class="courbe" viewBox="0 0 {L} {H}" preserveAspectRatio="none" aria-hidden="true">
-    <polygon class="aire" points={aire} />
+    <line class="plein" x1="0" y1="0" x2={L} y2="0" />
     <polyline points={points} />
   </svg>
 {/if}
@@ -39,15 +39,15 @@
 <style>
   .courbe {
     display: block;
-    width: 100%;
-    height: 40px;
+    width: 62%;
+    height: 30px;
     overflow: visible;
   }
 
-  .aire {
-    fill: var(--liqueur);
-    opacity: 0.14;
-    stroke: none;
+  .plein {
+    stroke: var(--verre-fin);
+    stroke-width: 1;
+    vector-effect: non-scaling-stroke;
   }
 
   polyline {

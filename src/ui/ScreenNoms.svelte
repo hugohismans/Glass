@@ -48,7 +48,7 @@
     />
   </form>
 
-  <ul>
+  <ul data-defilable>
     {#each jeu.joueurs as nom, i (nom + i)}
       <li>
         <span class="donnee rang">{String(i + 1).padStart(2, '0')}</span>
