@@ -29,7 +29,12 @@ jobs:
         run: npm run build
         env:
           BASE_PATH: /${{ github.event.repository.name }}/
+      # `enablement` bascule la source de Pages de « branche » vers « Actions ».
+      # Sans ça, un dépôt déjà configuré en mode branche continue de publier son
+      # README et le déploiement échoue.
       - uses: actions/configure-pages@v5
+        with:
+          enablement: true
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
